@@ -13,6 +13,16 @@ import miage.gestioncabinet.api.Produit;
 public class ProduitDB implements Produit, Serializable {
 	
 	@Id
+	private int ID;
+	
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
 	private String cis;
 	private String nom;
 	

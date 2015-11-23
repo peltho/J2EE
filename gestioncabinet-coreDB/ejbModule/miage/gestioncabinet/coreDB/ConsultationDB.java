@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import miage.gestioncabinet.api.Consultation;
 import miage.gestioncabinet.api.Interaction;
@@ -23,13 +27,19 @@ import miage.gestioncabinet.api.Traitement;
 public class ConsultationDB implements Consultation, Serializable {
 	@Id
 	private Long ID;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateDebut;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateFin;
 	private String compteRendu;
-	@OneToOne(targetEntity=MedecinDB.class)
+	@ManyToOne
+	@JoinColumn(name="id_medecin")
 	private Medecin medecin;
-	@OneToOne(targetEntity=PatientDB.class)
+	@ManyToOne
+	@JoinColumn(name="id_patient")
 	private Patient patient;
+	@OneToMany(mappedBy="consultation_id")
+	@JoinColumn(name="id_consultation")
 	private List<Traitement> traitements;
 	private List<Interaction> interactions;
 	

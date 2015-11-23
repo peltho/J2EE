@@ -2,22 +2,28 @@ package miage.gestioncabinet.coreDB;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import miage.gestioncabinet.api.Personne;
 
 @Entity
 @Table(name="Personne")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type_personne")
 public class PersonneDB implements Personne, Serializable {
-	@Column
-	private String nom;
-	@Column
-	private String prenom;
+
+	private static final long serialVersionUID = -4486181266291570930L;
+
 	@Id
 	private long ID;
+	
+	private String nom;
+	private String prenom;
 	
 	public PersonneDB() {
 		this.ID = System.currentTimeMillis();

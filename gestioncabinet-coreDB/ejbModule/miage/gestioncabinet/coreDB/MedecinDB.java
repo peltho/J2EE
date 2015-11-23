@@ -1,11 +1,16 @@
 package miage.gestioncabinet.coreDB;
 
+import javax.persistence.DiscriminatorValue;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import miage.gestioncabinet.api.Medecin;
+
+
 @Entity
 @Table(name="Medecin")
+@DiscriminatorValue("patient")
 public class MedecinDB extends PersonneDB implements Medecin {
 	private String compte;
 	private String RPPS;

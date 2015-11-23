@@ -3,16 +3,21 @@ package miage.gestioncabinet.coreDB;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import miage.gestioncabinet.api.Patient;
 
 @Entity
 @Table(name="Patient")
+@DiscriminatorValue("patient")
 public class PatientDB extends PersonneDB implements Patient, Serializable {
 	private Calendar dateNaissance;
 	private String sexe;
+	@Transient
+	private int age;
 	
 	@Override
 	public Calendar getDateNaissance() {
