@@ -19,6 +19,8 @@ public class PatientDB extends PersonneDB implements Patient, Serializable {
 	@Transient
 	private int age;
 	
+	public PatientDB() {}
+	
 	@Override
 	public Calendar getDateNaissance() {
 		return this.dateNaissance;

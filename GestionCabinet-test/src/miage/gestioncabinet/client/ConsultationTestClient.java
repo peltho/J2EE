@@ -43,9 +43,11 @@ public class ConsultationTestClient {
 		String service=null;
 		try{
 			ServiceLocator locator = ServiceLocator.INSTANCE;
-			service="ejb:gestioncabinetear/gestioncabinet-coreM//PlanningService!miage.gestioncabinet.api.PlanningRemoteService?stateful";
+			//service="ejb:gestioncabinetear/gestioncabinet-coreM//PlanningService!miage.gestioncabinet.api.PlanningRemoteService?stateful";
+			service="ejb:gestioncabinetear/gestioncabinet-coreDB//PlanningDBService!miage.gestioncabinet.api.PlanningRemoteService?stateful";
 			this.planningService = (PlanningRemoteService) locator.getRemoteInterface(service);
-			service="ejb:gestioncabinetear/gestioncabinet-coreM//ConsultationService!miage.gestioncabinet.api.ConsultationRemoteService?stateful";
+			//service="ejb:gestioncabinetear/gestioncabinet-coreM//ConsultationService!miage.gestioncabinet.api.ConsultationRemoteService?stateful";
+			service="ejb:gestioncabinetear/gestioncabinet-coreDB//ConsultationDBService!miage.gestioncabinet.api.ConsultationRemoteService?stateful";
 			this.csService = (ConsultationRemoteService) locator.getRemoteInterface(service);
 		}
 		catch(ServiceLocatorException e){

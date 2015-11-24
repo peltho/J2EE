@@ -19,6 +19,8 @@ public class TraitementDB implements Traitement, Serializable {
 	private String posologie;
 	private Produit p;
 	
+	public TraitementDB() {}
+	
 	@Override
 	public Produit getProduit() {
 		return p;

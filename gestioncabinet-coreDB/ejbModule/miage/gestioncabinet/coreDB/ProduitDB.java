@@ -15,6 +15,8 @@ public class ProduitDB implements Produit, Serializable {
 	@Id
 	private int ID;
 	
+	public ProduitDB() {};
+	
 	public int getID() {
 		return ID;
 	}

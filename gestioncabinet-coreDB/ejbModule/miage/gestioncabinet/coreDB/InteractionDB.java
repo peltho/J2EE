@@ -19,6 +19,8 @@ public class InteractionDB implements Interaction, Serializable {
 	private String precautions;
 	private Produit pA, pB;
 	
+	public InteractionDB() {}
+	
 	@Override
 	public Produit getProduitA() {
 		return pA;

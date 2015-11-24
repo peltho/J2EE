@@ -15,6 +15,8 @@ public class UtilisateurDB extends PersonneDB implements Utilisateur, Serializab
 	
 	private String compte;
 	
+	public UtilisateurDB() {}
+	
 	@Override
 	public String getCompte() {
 		return this.compte;

@@ -7,7 +7,7 @@
         <dependent-module archiveName="gestioncabinet-api.jar" deploy-path="/lib" handle="module:/resource/gestioncabinet-api/gestioncabinet-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="gestioncabinet-coreM.jar" deploy-path="/" handle="module:/resource/gestioncabinet-coreM/gestioncabinet-coreM">
+        <dependent-module archiveName="gestioncabinet-coreDB.jar" deploy-path="/" handle="module:/resource/gestioncabinet-coreDB/gestioncabinet-coreDB">
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
