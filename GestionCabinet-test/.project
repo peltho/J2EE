@@ -3,6 +3,10 @@
 	<name>GestionCabinet-test</name>
 	<comment></comment>
 	<projects>
+		<project>com.novarem.jndi</project>
+		<project>gestioncabinet-api</project>
+		<project>gestioncabinet-coreDB</project>
+		<project>gestioncabinet-vidal</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

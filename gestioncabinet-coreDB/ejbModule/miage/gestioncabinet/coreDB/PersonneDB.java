@@ -20,7 +20,7 @@ public class PersonneDB implements Personne, Serializable {
 	private static final long serialVersionUID = -4486181266291570930L;
 
 	@Id
-	private long ID;
+	private Long ID;
 	
 	private String nom;
 	private String prenom;

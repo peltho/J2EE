@@ -27,4 +27,5 @@ public class MedecinDB extends PersonneDB implements Medecin, Serializable {
 	public String getRPPS() {
 		return this.RPPS;
 	}
+	
 }

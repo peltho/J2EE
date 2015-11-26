@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import miage.gestioncabinet.api.Interaction;
@@ -17,7 +19,12 @@ public class InteractionDB implements Interaction, Serializable {
 	private String severite;
 	private String risques;
 	private String precautions;
-	private Produit pA, pB;
+	@OneToOne(targetEntity=ProduitDB.class)
+	@JoinColumn(name="id_produitA")
+	private Produit pA;
+	@OneToOne(targetEntity=ProduitDB.class)
+	@JoinColumn(name="id_produitB")
+	private Produit pB;
 	
 	public InteractionDB() {}
 	

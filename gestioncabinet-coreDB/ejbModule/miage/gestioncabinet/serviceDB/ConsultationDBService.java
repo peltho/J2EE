@@ -1,4 +1,4 @@
-package miage.gestioncabinet.service;
+package miage.gestioncabinet.serviceDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +54,7 @@ public class ConsultationDBService implements ConsultationRemoteService {
 		
 		ps = new ProductService_Service().getProductServiceHttpPort();
 		is = new InteractionService_Service().getInteractionServiceHttpPort();
+		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestioncabinet");
 		EntityManager em = emf.createEntityManager();
 		MedecinDB m1 = em.find(MedecinDB.class, 1);

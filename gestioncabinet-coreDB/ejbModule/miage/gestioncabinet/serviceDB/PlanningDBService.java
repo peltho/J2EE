@@ -1,4 +1,4 @@
-package miage.gestioncabinet.service;
+package miage.gestioncabinet.serviceDB;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -11,7 +11,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import javax.ejb.Stateful;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
+import fr.vidal.webservices.interactionservice.InteractionService;
+import fr.vidal.webservices.interactionservice.InteractionService_Service;
+import fr.vidal.webservices.productservice.ProductService;
+import fr.vidal.webservices.productservice.ProductService_Service;
 import miage.gestioncabinet.api.Consultation;
 import miage.gestioncabinet.api.GestionCabinetException;
 import miage.gestioncabinet.api.Medecin;
@@ -20,7 +29,6 @@ import miage.gestioncabinet.api.PlanningRemoteService;
 import miage.gestioncabinet.api.Utilisateur;
 import miage.gestioncabinet.coreDB.ConsultationDB;
 import miage.gestioncabinet.coreDB.MedecinDB;
-import miage.gestioncabinet.coreDB.PatientDB;
 
 @Stateful
 @Remote(PlanningRemoteService.class)
@@ -34,6 +42,10 @@ public class PlanningDBService implements PlanningRemoteService, Serializable {
 	private List<Consultation> consultations;
 	private List<Medecin> medecins;
 	private ArrayList<Patient> patients;
+	private ProductService ps;
+	private InteractionService is;
+	EntityManagerFactory emf;
+	EntityManager em;
 
 	public PlanningDBService() {}
 	
@@ -50,28 +62,23 @@ public class PlanningDBService implements PlanningRemoteService, Serializable {
 	public void init() throws ParseException {
 		
 		medecins = new ArrayList<Medecin>();
-		Medecin m1 = new MedecinDB();
-		m1.setNom("Shepperd");
-		m1.setPrenom("Derek");
 		
-		Medecin m2 = new MedecinDB();
-		m2.setNom("Pellegatta");
-		m2.setPrenom("Thomas");
-		
-		medecins.add(m1);
-		medecins.add(m2);
 		
 		Calendar cal = Calendar.getInstance();
 		this.dateDebut = cal;
 		this.dateFin = cal;
 		
-		patients = new ArrayList<Patient>();
-		Patient p1 = new PatientDB();
-		p1.setNom("MARTIN");
-		p1.setPrenom("Jean");
-		p1.setDateNaissance(setBirthdate("12/03/1964"));
+		ps = new ProductService_Service().getProductServiceHttpPort();
+		is = new InteractionService_Service().getInteractionServiceHttpPort();
+		emf = Persistence.createEntityManagerFactory("gestioncabinet");
+		em = emf.createEntityManager();
+
+		MedecinDB m1 = em.getReference(MedecinDB.class, 2L);
+		this.medecins = new ArrayList<Medecin>();
+		this.medecins.add(m1);
 		
-		patients.add(p1);
+		em.close();
+		emf.close();
 		
 		consultations = new ArrayList<Consultation>();
 

@@ -32,15 +32,17 @@ public class ConsultationDB implements Consultation, Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateFin;
 	private String compteRendu;
-	@ManyToOne
+	@ManyToOne(targetEntity=MedecinDB.class)
 	@JoinColumn(name="id_medecin")
 	private Medecin medecin;
-	@ManyToOne
+	@ManyToOne(targetEntity=PatientDB.class)
 	@JoinColumn(name="id_patient")
 	private Patient patient;
-	@OneToMany(mappedBy="consultation_id")
+	@OneToMany(targetEntity=TraitementDB.class)
 	@JoinColumn(name="id_consultation")
 	private List<Traitement> traitements;
+	@OneToMany(targetEntity=InteractionDB.class)
+	@JoinColumn(name="id_consultation")
 	private List<Interaction> interactions;
 	
 	public ConsultationDB() {
@@ -48,7 +50,9 @@ public class ConsultationDB implements Consultation, Serializable {
 		this.interactions = new ArrayList<Interaction>();
 		this.ID = System.currentTimeMillis();
 	}
+
 	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,6 +60,8 @@ public class ConsultationDB implements Consultation, Serializable {
 		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -73,6 +79,8 @@ public class ConsultationDB implements Consultation, Serializable {
 			return false;
 		return true;
 	}
+
+
 
 	public Long getID() {
 		return ID;
