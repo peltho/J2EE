@@ -5,6 +5,10 @@ import miage.gestioncabinet.api.Traitement;
 
 public class TraitementImpl implements Traitement {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6013228509348721863L;
 	private Long ID;
 	private String posologie;
 	private Produit p;

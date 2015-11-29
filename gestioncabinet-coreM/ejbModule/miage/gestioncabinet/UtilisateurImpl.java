@@ -11,6 +11,10 @@ import miage.gestioncabinet.api.Utilisateur;
 @Table(name="Utilisateur")
 public class UtilisateurImpl extends PersonneImpl implements Utilisateur, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6014494300710828310L;
 	private String compte;
 	
 	@Override

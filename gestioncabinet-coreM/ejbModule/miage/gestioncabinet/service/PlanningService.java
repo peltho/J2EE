@@ -53,12 +53,7 @@ public class PlanningService implements PlanningRemoteService {
 		m1.setNom("Shepperd");
 		m1.setPrenom("Derek");
 		
-		Medecin m2 = new MedecinImpl();
-		m2.setNom("Pellegatta");
-		m2.setPrenom("Thomas");
-		
 		medecins.add(m1);
-		medecins.add(m2);
 		
 		Calendar cal = Calendar.getInstance();
 		this.dateDebut = cal;
@@ -66,9 +61,9 @@ public class PlanningService implements PlanningRemoteService {
 		
 		patients = new ArrayList<Patient>();
 		Patient p1 = new PatientImpl();
-		p1.setNom("MARTIN");
-		p1.setPrenom("Jean");
-		p1.setDateNaissance(setBirthdate("12/03/1964"));
+		p1.setNom("Isoard");
+		p1.setPrenom("Tiffany");
+		p1.setDateNaissance(setBirthdate("12/03/1993"));
 		
 		patients.add(p1);
 		
@@ -161,7 +156,6 @@ public class PlanningService implements PlanningRemoteService {
 	@Override
 	public void supprimerRdv() throws GestionCabinetException {
 		this.consultations.remove(getRdvCourant());
-		//this.consultations.remove(this.consultations.size()-1);
 	}
 
 }

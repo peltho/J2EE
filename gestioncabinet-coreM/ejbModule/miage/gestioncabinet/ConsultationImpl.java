@@ -13,6 +13,10 @@ import miage.gestioncabinet.api.Traitement;
 
 public class ConsultationImpl implements Consultation {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4339081749876059660L;
 	private Long ID;
 	private Calendar dateDebut;
 	private Calendar dateFin;

@@ -4,6 +4,10 @@ import miage.gestioncabinet.api.Personne;
 
 public class PersonneImpl implements Personne {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1877721240180483025L;
 	private String nom;
 	private String prenom;
 	private long ID;

@@ -4,6 +4,10 @@ import miage.gestioncabinet.api.Medecin;
 
 public class MedecinImpl extends PersonneImpl implements Medecin {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3630536685882102514L;
 	private String compte;
 	private String RPPS;
 	

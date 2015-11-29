@@ -5,7 +5,7 @@
 	<projects>
 		<project>com.novarem.jndi</project>
 		<project>gestioncabinet-api</project>
-		<project>gestioncabinet-coreDB</project>
+		<project>gestioncabinet-coreM</project>
 		<project>gestioncabinet-vidal</project>
 	</projects>
 	<buildSpec>

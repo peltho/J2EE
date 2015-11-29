@@ -6,6 +6,10 @@ import miage.gestioncabinet.api.Patient;
 
 public class PatientImpl extends PersonneImpl implements Patient {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4927282465706160501L;
 	private Calendar dateNaissance;
 	private String	sexe;
 	
@@ -21,9 +25,7 @@ public class PatientImpl extends PersonneImpl implements Patient {
 
 	@Override
 	public Integer getAge() {
-		return 0;
-		// TODO
-		    
+		return 0; 
 	}
 
 	public String getSexe() {

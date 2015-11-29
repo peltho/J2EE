@@ -19,6 +19,7 @@ import fr.vidal.webservices.productservice.ProductService_Service;
 import fr.vidal.webservices.productservice.ProductType;
 import miage.gestioncabinet.ConsultationImpl;
 import miage.gestioncabinet.InteractionImpl;
+import miage.gestioncabinet.MedecinImpl;
 import miage.gestioncabinet.ProduitImpl;
 import miage.gestioncabinet.api.Consultation;
 import miage.gestioncabinet.api.ConsultationRemoteService;
@@ -33,35 +34,16 @@ import miage.gestioncabinet.api.Traitement;
 public class ConsultationService implements ConsultationRemoteService {
 
 	private Consultation consultation;
-	private List<Produit> produits;
-	private List<Traitement> traitements;
-	private List<Medecin> medecins;
 	private ProductService ps;
 	private InteractionService is;
 	
 	@PostConstruct
 	public void init() {
-		/*Produit p = new ProduitImpl();
-		p.setNom("plavix");
-		p.setCis("cisPlavix");
-		this.produits.add(p);
-		
-		Medecin m1 = new MedecinImpl();
-		m1.setNom("Pellegatta");
-		m1.setPrenom("Thomas");
-		
-		this.medecins = new ArrayList<Medecin>();
-		this.medecins.add(m1);
-		this.traitements = new ArrayList<Traitement>();*/
-		
 		ps = new ProductService_Service().getProductServiceHttpPort();
 		is = new InteractionService_Service().getInteractionServiceHttpPort();
-		
 	}
 
-	public ConsultationService() {
-		this.produits = new ArrayList<Produit>();
-	}
+	public ConsultationService() {}
 	
 	@Override
 	public Consultation getConsultation() {
@@ -79,6 +61,7 @@ public class ConsultationService implements ConsultationRemoteService {
 		for(Product p : products) {
 			Produit p1 = new ProduitImpl();
 			p1.setNom(p.getName());
+			p1.setCis(p.getCis());
 			produits.add(p1);
 		}
 		return produits;

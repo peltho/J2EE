@@ -15,6 +15,11 @@ import miage.gestioncabinet.api.Produit;
 @Table(name="Interaction")
 public class InteractionDB implements Interaction, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3658261078250146106L;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
