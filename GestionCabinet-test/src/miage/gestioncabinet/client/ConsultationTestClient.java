@@ -96,7 +96,6 @@ public class ConsultationTestClient {
 				app.csService.setConsultation(consultation);
 				consultation = app.csService.enregistrer();
 				System.out.println(medecin+" a enregistré la "+consultation);
-				
 				System.out.println(medecin+" procède à une analyse des interactions médicamenteuses...");
 				app.csService.analyserPrescription();
 				consultation = app.csService.getConsultation();

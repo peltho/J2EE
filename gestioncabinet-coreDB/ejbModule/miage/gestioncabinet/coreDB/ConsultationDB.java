@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,7 +41,7 @@ public class ConsultationDB implements Consultation, Serializable {
 	@ManyToOne(targetEntity=PatientDB.class)
 	@JoinColumn(name="id_patient")
 	private Patient patient;
-	@OneToMany(targetEntity=TraitementDB.class)
+	@OneToMany(fetch = FetchType.EAGER, targetEntity=TraitementDB.class)
 	@JoinColumn(name="id_consultation")
 	private List<Traitement> traitements;
 	@OneToMany(targetEntity=InteractionDB.class)

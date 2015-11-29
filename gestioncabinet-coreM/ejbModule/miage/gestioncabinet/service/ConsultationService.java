@@ -113,7 +113,7 @@ public class ConsultationService implements ConsultationRemoteService {
             Produit produitB = new ProduitImpl();
             produitB.setCis(interactionCouple.getProductB().getCis());
             produitB.setNom(interactionCouple.getProductB().getName());
-            interaction.setProduitA(produitB);
+            interaction.setProduitB(produitB);
             
             // Risques
             interaction.setRisques(interactionCouple.getRiskComment());

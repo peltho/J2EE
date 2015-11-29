@@ -59,6 +59,7 @@ public class ConsultationDBService implements ConsultationRemoteService {
 		for(Product p : products) {
 			Produit p1 = new ProduitDB();
 			p1.setNom(p.getName());
+			p1.setCis(p.getCis());
 			produits.add(p1);
 		}
 		return produits;
@@ -93,7 +94,7 @@ public class ConsultationDBService implements ConsultationRemoteService {
             Produit produitB = new ProduitDB();
             produitB.setCis(interactionCouple.getProductB().getCis());
             produitB.setNom(interactionCouple.getProductB().getName());
-            interaction.setProduitA(produitB);
+            interaction.setProduitB(produitB);
             
             // Risques
             interaction.setRisques(interactionCouple.getRiskComment());
