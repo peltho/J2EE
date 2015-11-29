@@ -15,6 +15,10 @@ import miage.gestioncabinet.api.Traitement;
 @Table(name="Traitement")
 public class TraitementDB implements Traitement, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3397962635019844248L;
 	@Id
 	private int ID;
 	private String posologie;

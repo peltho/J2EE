@@ -6,12 +6,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import javax.ejb.Stateful;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
+import fr.vidal.webservices.interactionservice.ArrayOfInt;
+import fr.vidal.webservices.interactionservice.ArrayOfInteractionCouple;
+import fr.vidal.webservices.interactionservice.InteractionCouple;
 import fr.vidal.webservices.interactionservice.InteractionService;
 import fr.vidal.webservices.interactionservice.InteractionService_Service;
+import fr.vidal.webservices.interactionservice.InteractionSeverityType;
 import fr.vidal.webservices.productservice.Product;
 import fr.vidal.webservices.productservice.ProductService;
 import fr.vidal.webservices.productservice.ProductService_Service;
@@ -19,11 +20,11 @@ import fr.vidal.webservices.productservice.ProductType;
 import miage.gestioncabinet.api.Consultation;
 import miage.gestioncabinet.api.ConsultationRemoteService;
 import miage.gestioncabinet.api.GestionCabinetException;
-import miage.gestioncabinet.api.Medecin;
+import miage.gestioncabinet.api.Interaction;
 import miage.gestioncabinet.api.Produit;
 import miage.gestioncabinet.api.Traitement;
 import miage.gestioncabinet.coreDB.ConsultationDB;
-import miage.gestioncabinet.coreDB.MedecinDB;
+import miage.gestioncabinet.coreDB.InteractionDB;
 import miage.gestioncabinet.coreDB.ProduitDB;
 
 @Stateful
@@ -31,43 +32,16 @@ import miage.gestioncabinet.coreDB.ProduitDB;
 public class ConsultationDBService implements ConsultationRemoteService {
 
 	private Consultation consultation;
-	private List<Produit> produits;
-	private List<Traitement> traitements;
-	private List<Medecin> medecins;
 	private ProductService ps;
 	private InteractionService is;
 	
 	@PostConstruct
 	public void init() {
-		/*Produit p = new ProduitImpl();
-		p.setNom("plavix");
-		p.setCis("cisPlavix");
-		this.produits.add(p);
-		
-		Medecin m1 = new MedecinImpl();
-		m1.setNom("Pellegatta");
-		m1.setPrenom("Thomas");
-		
-		this.medecins = new ArrayList<Medecin>();
-		this.medecins.add(m1);
-		this.traitements = new ArrayList<Traitement>();*/
-		
 		ps = new ProductService_Service().getProductServiceHttpPort();
 		is = new InteractionService_Service().getInteractionServiceHttpPort();
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestioncabinet");
-		EntityManager em = emf.createEntityManager();
-		MedecinDB m1 = em.find(MedecinDB.class, 1);
-		this.medecins = new ArrayList<Medecin>();
-		this.medecins.add(m1);
-		
-		em.close();
-		emf.close();
 	}
 
-	public ConsultationDBService() {
-		this.produits = new ArrayList<Produit>();
-	}
+	public ConsultationDBService() {}
 	
 	@Override
 	public Consultation getConsultation() {
@@ -92,10 +66,48 @@ public class ConsultationDBService implements ConsultationRemoteService {
 
 	@Override
 	public void analyserPrescription() throws GestionCabinetException {
-		// Récupérer le tableau des ID des produits
-		// InteractionResult ir = is.getInteractionCouplesForProductIds(productIds, severity);
-	}
+		List<Traitement> traitements = consultation.getPrescription();
 
+        ArrayOfInt productIds = new ArrayOfInt();
+
+        for (Traitement traitement : traitements) {
+        	Product p = ps.searchByCis(traitement.getProduit().getCis());
+			productIds.getInt().add(p.getId());
+        }
+
+        List<Interaction> interactionsFound = new ArrayList<Interaction>();
+        ArrayOfInteractionCouple arrayInteractionsCouple = is.searchInteractionCouplesForProductIds(productIds, InteractionSeverityType.TAKE_INTO_ACCOUNT).getInteractionCoupleList();
+
+        for (InteractionCouple interactionCouple : arrayInteractionsCouple.getInteractionCouple()) {
+            Interaction interaction = new InteractionDB();
+            // Précautions
+            interaction.setPrecautions(interactionCouple.getPrecautionComment());
+            
+            // Produit A
+            Produit produitA = new ProduitDB();
+            produitA.setCis(interactionCouple.getProductA().getCis());
+            produitA.setNom(interactionCouple.getProductA().getName());
+            interaction.setProduitA(produitA);
+            
+            // Produit B
+            Produit produitB = new ProduitDB();
+            produitB.setCis(interactionCouple.getProductB().getCis());
+            produitB.setNom(interactionCouple.getProductB().getName());
+            interaction.setProduitA(produitB);
+            
+            // Risques
+            interaction.setRisques(interactionCouple.getRiskComment());
+            
+            // Sévérité
+            interaction.setSeverite(interactionCouple.getSeverity().value());
+            
+            //Ajout interaction
+            interactionsFound.add(interaction);
+        }
+
+        this.consultation.setInteractions(interactionsFound);
+	}
+	
 	@Override
 	public Consultation enregistrer() throws GestionCabinetException {
 		return this.consultation;

@@ -1,11 +1,9 @@
 package miage.gestioncabinet.coreDB;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,6 +23,10 @@ import miage.gestioncabinet.api.Traitement;
 @Entity
 @Table(name="Consultation")
 public class ConsultationDB implements Consultation, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5575532269783479064L;
 	@Id
 	private Long ID;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -46,12 +48,10 @@ public class ConsultationDB implements Consultation, Serializable {
 	private List<Interaction> interactions;
 	
 	public ConsultationDB() {
-		this.traitements = new ArrayList<Traitement>();
-		this.interactions = new ArrayList<Interaction>();
+		/*this.traitements = new ArrayList<Traitement>();*/
+		/*this.interactions = new ArrayList<Interaction>();*/
 		this.ID = System.currentTimeMillis();
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -60,8 +60,6 @@ public class ConsultationDB implements Consultation, Serializable {
 		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -79,8 +77,6 @@ public class ConsultationDB implements Consultation, Serializable {
 			return false;
 		return true;
 	}
-
-
 
 	public Long getID() {
 		return ID;
@@ -171,7 +167,7 @@ public class ConsultationDB implements Consultation, Serializable {
 		Boolean flag = false;
 		Traitement t = new TraitementDB();
 		t.setProduit(produit);
-		if(!this.traitements.isEmpty() && !this.traitements.contains(t)) {
+		if(!this.traitements.contains(t)) {
 			this.traitements.add(t);
 			flag = true;
 		}
@@ -196,12 +192,11 @@ public class ConsultationDB implements Consultation, Serializable {
 
 	@Override
 	public int compareTo(Consultation o) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
 	public String toString() {
-		return this.getClass().getSimpleName()+"#"+getID();
+		return this.getClass().getSimpleName()+"#"+getID()+" Patient : "+getPatient().getNom()+" "+getPatient().getPrenom();
 	}
 
 }

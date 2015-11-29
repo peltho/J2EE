@@ -73,14 +73,16 @@ public class PlanningDBService implements PlanningRemoteService, Serializable {
 		emf = Persistence.createEntityManagerFactory("gestioncabinet");
 		em = emf.createEntityManager();
 
-		MedecinDB m1 = em.getReference(MedecinDB.class, 2L);
+		MedecinDB m1 = em.find(MedecinDB.class, 1L);
 		this.medecins = new ArrayList<Medecin>();
 		this.medecins.add(m1);
 		
-		em.close();
-		emf.close();
-		
 		consultations = new ArrayList<Consultation>();
+		ConsultationDB c1 = em.find(ConsultationDB.class, 1L);
+		this.consultations.add(c1);
+				
+		/*em.close();
+		emf.close();*/
 
 	}
 

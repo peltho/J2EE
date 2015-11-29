@@ -22,5 +22,7 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/thomas/WildFly/wildfly-8.2.1.Final/modules/com/mysql/main/hibernate-core-4.2.7.SP1.jar"/>
+	<classpathentry kind="lib" path="/Users/thomas/WildFly/wildfly-8.2.1.Final/modules/com/mysql/main/javassist-3.12.0.SP1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

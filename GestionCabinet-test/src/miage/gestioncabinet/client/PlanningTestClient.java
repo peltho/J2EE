@@ -58,7 +58,7 @@ public class PlanningTestClient {
 			System.out.println("Liste des médecins enregistrés : "+medecins);
 			
 			Medecin medecin = medecins.get(0);
-			//System.out.println(medecin.getCompte());
+
 			app.ejb.setMedecin(medecin);
 			System.out.println("Sélection du médecin courant : "+medecin);
 				
