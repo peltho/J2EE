@@ -2,10 +2,8 @@ package miage.gestioncabinet.serviceDB;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,14 +11,8 @@ import javax.ejb.Remote;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-import fr.vidal.webservices.interactionservice.InteractionService;
-import fr.vidal.webservices.interactionservice.InteractionService_Service;
-import fr.vidal.webservices.productservice.ProductService;
-import fr.vidal.webservices.productservice.ProductService_Service;
 import miage.gestioncabinet.api.Consultation;
 import miage.gestioncabinet.api.GestionCabinetException;
 import miage.gestioncabinet.api.Medecin;
@@ -34,6 +26,10 @@ import miage.gestioncabinet.coreDB.MedecinDB;
 @Remote(PlanningRemoteService.class)
 public class PlanningDBService implements PlanningRemoteService, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4499532513746246431L;
 	private Utilisateur user;
 	private Calendar dateDebut;
 	private Calendar dateFin;
@@ -41,22 +37,10 @@ public class PlanningDBService implements PlanningRemoteService, Serializable {
 	private Consultation rdv;
 	private List<Consultation> consultations;
 	private List<Medecin> medecins;
-	private ArrayList<Patient> patients;
-	private ProductService ps;
-	private InteractionService is;
 	EntityManagerFactory emf;
 	EntityManager em;
 
 	public PlanningDBService() {}
-	
-	private Calendar setBirthdate(String date) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-		String dateInString = date;
-		Date date1 = formatter.parse(dateInString);
-		Calendar cal1 = Calendar.getInstance();
-		cal1.setTime(date1);
-		return cal1;
-	}
 	
 	@PostConstruct
 	public void init() throws ParseException {
@@ -68,8 +52,7 @@ public class PlanningDBService implements PlanningRemoteService, Serializable {
 		this.dateDebut = cal;
 		this.dateFin = cal;
 		
-		ps = new ProductService_Service().getProductServiceHttpPort();
-		is = new InteractionService_Service().getInteractionServiceHttpPort();
+
 		emf = Persistence.createEntityManagerFactory("gestioncabinet");
 		em = emf.createEntityManager();
 
